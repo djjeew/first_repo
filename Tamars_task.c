@@ -4,7 +4,8 @@
 #include <time.h>
 
 
-typedef struct Song {
+typedef struct Song 
+{
   char* name;
   char* artist;
   struct Song* next;
