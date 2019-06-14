@@ -44,16 +44,19 @@ void main()
 
   getchar();
 }
+
 Song* createSong(char* name, char* artist)
 {
   Song* newSong = malloc(sizeof(Song));
-  if (newSong) {
+  if (newSong != NULL) 
+  {
     newSong->name = name;
     newSong->artist = artist;
     newSong->next = NULL;
-    printf("Song created: \n");
+    printf("Song %s performed by %s created \n",newSong->name,newSong->artist);
     printSong(newSong);
   }
+  
   else
   {
     printf("allocation failed\n");
@@ -62,49 +65,55 @@ Song* createSong(char* name, char* artist)
   return newSong;
 }
 
-void printSong(Song* song) 
-{
-  printf("the song:%s preformed by %s\n", song->name, song->artist);
-}
+void printSong(Song* song){printf("the song:%s performed by %s\n", song->name, song->artist);}
 
 void addSongToEnd(Song* head, Song* songToAdd) 
 {
   Song* current = head;
-  while (current != NULL && current->next != NULL) 
+  if (current != NULL)
   {
+  while (current->next != NULL) 
+    {
     current = current->next;
+    }
+
+    current->next = songToAdd;
+    songToAdd->next = NULL;
+    printf("The song is added successfully\n");
   }
-  current->next = songToAdd;
-  songToAdd->next = NULL;
-  printf("The song is added successfully\n");
+  
+  else
+    {
+      puts("List isn't initialized")
+    }
 }
 
-void printPlaylist(Song* head) {
+
+void printPlaylist(Song* head) 
+{
   Song* current = head;
   int count = 1;
   printf("The playlist: \n------------------\n");
-  while (current) {
+  while (current) 
+  {
     printf("%d - ", count);
     printSong(current);
     current = current->next;
     count++;
   }
   printf("------------------\n");
-
 }
 
-void freeSong(Song* song) {
-  printf("Freeing song: ");
-  printSong(song);
-  free(song);
-}
+void freeSong(Song* song){printf("Freeing song: ");printSong(song);free(song);}
 
-void freePlaylist(Song* head) {
+void freePlaylist(Song* head) 
+{
   Song* current = head;
   Song* tempSong = NULL;
 
   printf("Freeing playlist.............\n");
-  while (current) {
+  while (current != NULL) 
+  {
     tempSong = current->next;
     freeSong(current);
     current = tempSong;
@@ -112,9 +121,11 @@ void freePlaylist(Song* head) {
   printf("Done freeing playlist.............\n");
 }
 
-void removeSong(Song* head, Song* songToRemove) {
+void removeSong(Song* head, Song* songToRemove) 
+{
   Song* current = head;
-  while (current->next != songToRemove) {
+  while (current->next != songToRemove) 
+  {
     current = current->next;
   }
   current->next = songToRemove->next;
@@ -125,7 +136,8 @@ void addSongAtSpecificLocation(Song* head, int location, Song* songToAdd)
 {
   Song* current = head;
   int i = 0;
-  for (i = 0; i < location&&current->next != NULL; i++, current = current->next) {
+  for (i = 0; i < location&&current->next != NULL; i++, current = current->next) 
+  {
   }
   if (i == location) {
     songToAdd->next = current->next;
@@ -166,6 +178,10 @@ void deleteSpecificSongs(Song* current, char* artist)// current = head at first 
         removeSong(head, current);
     }
     printf("songs deleted\n");
+  }
+  else
+  {
+
   }
   
 }
