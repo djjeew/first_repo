@@ -62,13 +62,16 @@ Song* createSong(char* name, char* artist)
   return newSong;
 }
 
-void printSong(Song* song) {
+void printSong(Song* song) 
+{
   printf("the song:%s preformed by %s\n", song->name, song->artist);
 }
 
-void addSongToEnd(Song* head, Song* songToAdd) {
+void addSongToEnd(Song* head, Song* songToAdd) 
+{
   Song* current = head;
-  while (current && current->next) {
+  while (current != NULL && current->next != NULL) 
+  {
     current = current->next;
   }
   current->next = songToAdd;
@@ -118,7 +121,8 @@ void removeSong(Song* head, Song* songToRemove) {
   freeSong(songToRemove);
 }
 
-void addSongAtSpecificLocation(Song* head, int location, Song* songToAdd) {
+void addSongAtSpecificLocation(Song* head, int location, Song* songToAdd) 
+{
   Song* current = head;
   int i = 0;
   for (i = 0; i < location&&current->next != NULL; i++, current = current->next) {
@@ -151,12 +155,12 @@ void reverseOrder(Song* head)
 
 }
 
-void deleteSpecificSongs(Song* head, char* artist)
+void deleteSpecificSongs(Song* current, char* artist)// current = head at first iteration
 {
-  Song* current = head;
+  //Song* current = head;
   if (current != NULL)
   {
-    while (current != NULL)
+    while (current->next != NULL)
     {
       if (current->artist == artist)
         removeSong(head, current);
