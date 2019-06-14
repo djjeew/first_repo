@@ -53,8 +53,7 @@ Song* createSong(char* name, char* artist)
     newSong->name = name;
     newSong->artist = artist;
     newSong->next = NULL;
-    printf("Song %s performed by %s created \n",newSong->name,newSong->artist);
-    printSong(newSong);
+    printf("%s performed by %s created \n",newSong->name,newSong->artist);
   }
   
   else
@@ -65,7 +64,7 @@ Song* createSong(char* name, char* artist)
   return newSong;
 }
 
-void printSong(Song* song){printf("the song:%s performed by %s\n", song->name, song->artist);}
+void printSong(Song* song){printf("%s performed by %s\n", song->name, song->artist);}
 
 void addSongToEnd(Song* head, Song* songToAdd) 
 {
@@ -106,24 +105,28 @@ void printPlaylist(Song* head)
 
 void freeSong(Song* song){printf("Freeing song: ");printSong(song);free(song);}
 
-void freePlaylist(Song* head) 
+void freePlaylist(Song* current) 
 {
-  Song* current = head;
+  //Song* current = head;
   Song* tempSong = NULL;
 
   printf("Freeing playlist.............\n");
-  while (current != NULL) 
-  {
-    tempSong = current->next;
-    freeSong(current);
-    current = tempSong;
+  if(current != NULL)
+   { 
+    while (current->next != NULL) 
+    {
+      tempSong = current->next;
+      freeSong(current);
+      current = tempSong;
+      current = current->next;
+    }
+    printf("Playlist is empty.............\n");
   }
-  printf("Done freeing playlist.............\n");
 }
 
-void removeSong(Song* head, Song* songToRemove) 
+void removeSong(Song* current, Song* songToRemove) 
 {
-  Song* current = head;
+//Song* current = head;
   while (current->next != songToRemove) 
   {
     current = current->next;
