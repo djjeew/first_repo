@@ -112,7 +112,7 @@ void freePlaylist(Song* current)
 
   printf("Freeing playlist.............\n");
   if(current != NULL)
-   { 
+  {
     while (current->next != NULL) 
     {
       tempSong = current->next;
@@ -122,6 +122,8 @@ void freePlaylist(Song* current)
     }
     printf("Playlist is empty.............\n");
   }
+  else
+    puts("Palylist isn't initialized");
 }
 
 void removeSong(Song* current, Song* songToRemove) 
